@@ -12,6 +12,7 @@
   lang-color: none,
   comment-flag: none,
   lang: none,
+  lang-icon: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -39,6 +40,7 @@
     lang-color: lang-color,
     comment-flag: comment-flag,
     lang: lang,
+    lang-icon: lang-icon,
     comment-font-args: comment-font-args,
     lang-font-args: lang-font-args,
     numbering-font-args: numbering-font-args,
@@ -58,6 +60,7 @@
   let lang-color = args.lang-color
   let comment-flag = args.comment-flag
   let lang = args.lang
+  let lang-icon = args.lang-icon
   let comment-font-args = args.comment-font-args
   let lang-font-args = args.lang-font-args
   let numbering-font-args = args.numbering-font-args
@@ -104,7 +107,7 @@
   )
 
   // Render language tab if needed
-  render-lang-tab(has-lang, lang, lang-color, lang-font-args, inset, radius, it)
+  render-lang-tab(has-lang, lang, lang-color, lang-font-args, lang-icon, inset, radius, it)
 
   // Render the code block
   block(breakable: true, radius: radius, clip: true, fill: background-color-at-index(background-color, 0), {
@@ -465,6 +468,10 @@
   /// The arguments passed to comments' font.
   ///
   /// -> dictionary
+  lang-icon: none,
+  /// The arguments passed to comments' font.
+  ///
+  /// -> content
   comment-font-args: none,
   /// The arguments passed to the language tab's font.
   ///
@@ -652,6 +659,7 @@
       lang-color: lang-color,
       comment-flag: comment-flag,
       lang: lang,
+      lang-icon: lang-icon,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,
@@ -678,6 +686,7 @@
       lang-color: lang-color,
       comment-flag: comment-flag,
       lang: lang,
+      lang-icon: lang-icon,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,
@@ -707,6 +716,7 @@
       lang-color: lang-color,
       comment-flag: comment-flag,
       lang: lang,
+      lang-icon: lang-icon,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,

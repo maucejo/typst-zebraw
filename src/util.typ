@@ -176,7 +176,7 @@
     let lang-title = if type(lang) == bool { codly-languages.at(it.lang).name } else { lang }
     let lang-img = if lang-icon == none { codly-languages.at(it.lang).icon } else { lang-icon }
     let lang-col = if lang-color == none {
-      codly-languages.at(it.lang).color.lighten(30%)
+      codly-languages.at(it.lang).color.lighten(40%)
     } else {
       lang-color
     }

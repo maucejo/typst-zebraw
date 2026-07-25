@@ -8,7 +8,7 @@
 #let comment-flag-state = state("zebraw-comment-flag", ">")
 #let numbering-state = state("zebraw-numbering", true)
 #let lang-state = state("zebraw-lang", true)
-#let lang-icon-state = state("zebraw-lang-icon", none)
+#let lang-icon-state = state("zebraw-lang-icon", true)
 #let extend-state = state("zebraw-extend", true)
 #let numbering-separator-state = state("zebraw-numbering-separator", false)
 
@@ -73,6 +73,9 @@
   /// The arguments passed to comments' font.
   /// -> dictionary
   lang-icon: none,
+  /// Backward-compatible alias for `lang-icon`.
+  /// -> content | boolean
+  lang-img: none,
   /// The arguments passed to comments' font.
   /// -> content
   comment-font-args: (:),
@@ -115,6 +118,13 @@
 
   comment-flag-state.update(comment-flag)
   lang-state.update(lang)
+  let lang-icon = if lang-icon != none {
+    lang-icon
+  } else if lang-img != none {
+    lang-img
+  } else {
+    true
+  }
   lang-icon-state.update(lang-icon)
   comment-font-args-state.update(comment-font-args)
   lang-font-args-state.update(lang-font-args)
@@ -154,6 +164,7 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
+  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -188,11 +199,15 @@
     lang-color
   }
 
-  let lang-icon = get-arg-or-state(lang-icon, lang-icon-state)
-
   let comment-flag = get-arg-or-state(comment-flag, comment-flag-state)
   let lang = get-arg-or-state(lang, lang-state)
-  let lang-icon = get-arg-or-state(lang-icon, lang-icon-state)
+  let lang-icon = if lang-icon != none {
+    lang-icon
+  } else if lang-img != none {
+    lang-img
+  } else {
+    lang-icon-state.get()
+  }
 
   // Font args need to be merged with state
   let comment-font-args = merge-state-with-arg(comment-font-args, comment-font-args-state)

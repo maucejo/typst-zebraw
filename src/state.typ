@@ -8,6 +8,7 @@
 #let comment-flag-state = state("zebraw-comment-flag", ">")
 #let numbering-state = state("zebraw-numbering", true)
 #let lang-state = state("zebraw-lang", true)
+#let lang-icon-state = state("zebraw-lang-icon", none)
 #let extend-state = state("zebraw-extend", true)
 #let numbering-separator-state = state("zebraw-numbering-separator", false)
 
@@ -71,6 +72,9 @@
   lang: true,
   /// The arguments passed to comments' font.
   /// -> dictionary
+  lang-icon: none,
+  /// The arguments passed to comments' font.
+  /// -> content
   comment-font-args: (:),
   /// The arguments passed to the language tab's font.
   /// -> dictionary
@@ -111,7 +115,7 @@
 
   comment-flag-state.update(comment-flag)
   lang-state.update(lang)
-
+  lang-icon-state.update(lang-icon)
   comment-font-args-state.update(comment-font-args)
   lang-font-args-state.update(lang-font-args)
   numbering-font-args-state.update(numbering-font-args)
@@ -149,6 +153,7 @@
   lang-color: none,
   comment-flag: none,
   lang: none,
+  lang-icon: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -178,13 +183,16 @@
 
   // Lang color falls back to comment color if not set
   let lang-color = if lang-color == none {
-    if lang-color-state.get() == none { comment-color } else { lang-color-state.get() }
+    if lang-color-state.get() != none { lang-color-state.get() }
   } else {
     lang-color
   }
 
+  let lang-icon = get-arg-or-state(lang-icon, lang-icon-state)
+
   let comment-flag = get-arg-or-state(comment-flag, comment-flag-state)
   let lang = get-arg-or-state(lang, lang-state)
+  let lang-icon = get-arg-or-state(lang-icon, lang-icon-state)
 
   // Font args need to be merged with state
   let comment-font-args = merge-state-with-arg(comment-font-args, comment-font-args-state)
@@ -209,6 +217,7 @@
     lang-color: lang-color,
     comment-flag: comment-flag,
     lang: lang,
+    lang-icon: lang-icon,
     comment-font-args: comment-font-args,
     lang-font-args: lang-font-args,
     numbering-font-args: numbering-font-args,

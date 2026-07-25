@@ -1,5 +1,6 @@
 #import "state.typ": *
 #import "indentation.typ": *
+#import "@preview/codly-languages:0.1.10": *
 
 /// Get the current background color based on type (single color or array)
 #let background-color-at-index(background-color, idx) = {
@@ -166,20 +167,28 @@
   lang,
   lang-color,
   lang-font-args,
+  lang-icon,
   inset,
   radius,
   it,
 ) = context {
   if has-lang {
+    let lang-title = if type(lang) == bool { codly-languages.at(it.lang).name } else { lang }
+    let lang-img = if lang-icon == none { codly-languages.at(it.lang).icon } else { lang-icon }
+    let lang-col = if lang-color == none {
+      codly-languages.at(it.lang).color.lighten(30%)
+    } else {
+      lang-color
+    }
     let lang-tab = box(
       inset: 0.34em,
       outset: (bottom: radius),
       radius: (top: radius),
-      fill: lang-color,
+      fill: lang-col,
       text(
         bottom-edge: "bounds",
         ..lang-font-args,
-        if type(lang) == bool { it.lang } else { lang },
+        box(height: 0.75em, lang-img) + h(0.34em, weak: true) + lang-title,
       ),
     )
     v(-measure(lang-tab).height)

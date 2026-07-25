@@ -13,6 +13,7 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
+  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -41,6 +42,7 @@
     comment-flag: comment-flag,
     lang: lang,
     lang-icon: lang-icon,
+    lang-img: lang-img,
     comment-font-args: comment-font-args,
     lang-font-args: lang-font-args,
     numbering-font-args: numbering-font-args,
@@ -465,6 +467,9 @@
   ///
   /// -> boolean | string | content
   lang: none,
+  /// Backward-compatible alias for `lang-icon`.
+  /// -> content | boolean
+  lang-img: none,
   /// The arguments passed to comments' font.
   ///
   /// -> dictionary
@@ -641,6 +646,8 @@
   /// -> content
   body,
 ) = context {
+  let lang-icon = if lang-icon != none { lang-icon } else { lang-img }
+
   if dictionary(std).keys().contains("html") and std.target() == "html" {
     if counter("zebraw-html-styles").get() == (0,) {
       panic("HTML export requires zebraw-init. Add `#show: zebraw-init` at the beginning of your document.")
@@ -717,6 +724,7 @@
       comment-flag: comment-flag,
       lang: lang,
       lang-icon: lang-icon,
+      lang-img: lang-img,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,

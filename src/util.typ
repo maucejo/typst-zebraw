@@ -174,7 +174,11 @@
 ) = context {
   if has-lang {
     let lang-title = if type(lang) == bool { codly-languages.at(it.lang).name } else { lang }
-    let lang-img = if lang-icon == none { codly-languages.at(it.lang).icon } else { lang-icon }
+    let lang-icon-content = if type(lang-icon) == bool {
+      if lang-icon { codly-languages.at(it.lang).icon } else { none }
+    } else {
+      lang-icon
+    }
     let lang-col = if lang-color == none {
       codly-languages.at(it.lang).color.lighten(40%)
     } else {
@@ -185,10 +189,16 @@
       outset: (bottom: radius),
       radius: (top: radius),
       fill: lang-col,
-      text(
-        bottom-edge: "bounds",
-        ..lang-font-args,
-        box(height: 0.75em, lang-img) + h(0.34em, weak: true) + lang-title,
+      grid(
+        columns: (auto,)*2,
+        align: horizon,
+        column-gutter: 0.34em,
+        box(height: 0.8em, lang-icon-content),
+        text(
+          bottom-edge: "bounds",
+          ..lang-font-args,
+          lang-title
+        )
       ),
     )
     v(-measure(lang-tab).height)

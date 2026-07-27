@@ -173,22 +173,36 @@
   it,
 ) = context {
   if has-lang {
-    let lang-title = if type(lang) == bool { codly-languages.at(it.lang).name } else { lang }
-    let lang-icon-content = if type(lang-icon) == bool {
-      if lang-icon { codly-languages.at(it.lang).icon } else { none }
+    let use-codly = lang-icon == true
+    let codly-language = if use-codly {
+      codly-languages.at(it.lang)
+    }
+    let lang-title = if type(lang) != bool {
+      lang
+    } else if use-codly {
+      codly-language.name
+    } else {
+      it.lang
+    }
+    let lang-icon-content = if use-codly {
+      codly-language.icon
+    } else if type(lang-icon) == bool {
+      none
     } else {
       lang-icon
     }
-    let lang-col = if lang-color == none {
-      codly-languages.at(it.lang).color.lighten(40%)
+    let lang-col = if use-codly and lang-color == none {
+      codly-language.color.lighten(40%)
     } else {
       lang-color
     }
-    let lang-tab = box(
-      inset: 0.34em,
-      outset: (bottom: radius),
-      radius: (top: radius),
-      fill: lang-col,
+    let lang-content = if lang-icon-content == none {
+      text(
+        bottom-edge: "bounds",
+        ..lang-font-args,
+        lang-title,
+      )
+    } else {
       grid(
         columns: (auto,)*2,
         align: horizon,
@@ -197,9 +211,16 @@
         text(
           bottom-edge: "bounds",
           ..lang-font-args,
-          lang-title
-        )
-      ),
+          lang-title,
+        ),
+      )
+    }
+    let lang-tab = box(
+      inset: 0.34em,
+      outset: (bottom: radius),
+      radius: (top: radius),
+      fill: lang-col,
+      lang-content,
     )
     v(-measure(lang-tab).height)
     h(1fr)

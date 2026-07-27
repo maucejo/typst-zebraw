@@ -467,16 +467,18 @@
   ///
   /// -> boolean | string | content
   lang: none,
-  /// Backward-compatible alias for `lang-icon`.
-  /// -> content | boolean
+  /// Whether to use Codly's icon, display name, and color for language tabs, or custom icon content.
+  /// The default `false` preserves the original language tab appearance. Not supported for HTML output.
+  ///
+  /// -> boolean | content
+  lang-icon: none,
+  /// Alias for `lang-icon`.
+  ///
+  /// -> boolean | content
   lang-img: none,
   /// The arguments passed to comments' font.
   ///
   /// -> dictionary
-  lang-icon: none,
-  /// The arguments passed to comments' font.
-  ///
-  /// -> content
   comment-font-args: none,
   /// The arguments passed to the language tab's font.
   ///
@@ -666,7 +668,6 @@
       lang-color: lang-color,
       comment-flag: comment-flag,
       lang: lang,
-      lang-icon: lang-icon,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,
@@ -693,7 +694,6 @@
       lang-color: lang-color,
       comment-flag: comment-flag,
       lang: lang,
-      lang-icon: lang-icon,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,

@@ -73,9 +73,6 @@
   /// The arguments passed to comments' font.
   /// -> dictionary
   lang-icon: none,
-  /// Backward-compatible alias for `lang-icon`.
-  /// -> content | boolean
-  lang-img: none,
   /// The arguments passed to comments' font.
   /// -> content
   comment-font-args: (:),
@@ -120,8 +117,6 @@
   lang-state.update(lang)
   let lang-icon = if lang-icon != none {
     lang-icon
-  } else if lang-img != none {
-    lang-img
   } else {
     true
   }
@@ -164,7 +159,6 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
-  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -203,8 +197,6 @@
   let lang = get-arg-or-state(lang, lang-state)
   let lang-icon = if lang-icon != none {
     lang-icon
-  } else if lang-img != none {
-    lang-img
   } else {
     lang-icon-state.get()
   }

@@ -2,7 +2,7 @@
 
 #zebraw(
   lang: true,
-  lang-img: false,
+  lang-icon: true,
   ```typ
   #let x = 1
   #let y = x + 1

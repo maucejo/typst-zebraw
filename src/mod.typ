@@ -13,6 +13,7 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
+  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -41,6 +42,7 @@
     comment-flag: comment-flag,
     lang: lang,
     lang-icon: lang-icon,
+    lang-img: lang-img,
     comment-font-args: comment-font-args,
     lang-font-args: lang-font-args,
     numbering-font-args: numbering-font-args,
@@ -465,14 +467,22 @@
   ///
   /// -> boolean | string | content
   lang: none,
+  /// Whether to use Codly's icon, display name, and color for language tabs, or custom icon content.
+  /// The default `false` preserves the original language tab appearance. Not supported for HTML output.
+  ///
+  /// -> boolean | content
+  lang-icon: none,
+  /// Alias for `lang-icon`.
+  ///
+  /// -> boolean | content
+  lang-img: none,
   /// The arguments passed to comments' font.
   ///
   /// -> dictionary
-  lang-icon: none,
-  /// The arguments passed to comments' font.
+  comment-font-args: none,
+  /// The arguments passed to the language tab's font.
   ///
   /// -> content
-  comment-font-args: none,
   /// The arguments passed to the language tab's font.
   ///
   /// #example(````typ
@@ -641,7 +651,11 @@
   /// -> content
   body,
 ) = context {
-  let lang-icon = if lang-icon != none { lang-icon }
+  let lang-icon = if lang-icon != none {
+    lang-icon
+  } else {
+    lang-img
+  }
 
   if dictionary(std).keys().contains("html") and std.target() == "html" {
     if counter("zebraw-html-styles").get() == (0,) {
@@ -719,6 +733,7 @@
       comment-flag: comment-flag,
       lang: lang,
       lang-icon: lang-icon,
+      lang-img: lang-img,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,

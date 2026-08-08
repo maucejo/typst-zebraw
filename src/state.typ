@@ -8,7 +8,7 @@
 #let comment-flag-state = state("zebraw-comment-flag", ">")
 #let numbering-state = state("zebraw-numbering", true)
 #let lang-state = state("zebraw-lang", true)
-#let lang-icon-state = state("zebraw-lang-icon", true)
+#let lang-icon-state = state("zebraw-lang-icon", false)
 #let extend-state = state("zebraw-extend", true)
 #let numbering-separator-state = state("zebraw-numbering-separator", false)
 
@@ -70,11 +70,15 @@
   /// Whether to show the language tab, or a string or content of custom language name to display.
   /// -> boolean | string | content
   lang: true,
+  /// Whether to use Codly's icon, display name, and color for language tabs, or custom icon content.
+  /// The default `false` preserves the original language tab appearance.
+  /// -> boolean | content
+  lang-icon: none,
+  /// Alias for `lang-icon`.
+  /// -> boolean | content
+  lang-img: none,
   /// The arguments passed to comments' font.
   /// -> dictionary
-  lang-icon: none,
-  /// The arguments passed to comments' font.
-  /// -> content
   comment-font-args: (:),
   /// The arguments passed to the language tab's font.
   /// -> dictionary
@@ -117,8 +121,10 @@
   lang-state.update(lang)
   let lang-icon = if lang-icon != none {
     lang-icon
+  } else if lang-img != none {
+    lang-img
   } else {
-    true
+    false
   }
   lang-icon-state.update(lang-icon)
   comment-font-args-state.update(comment-font-args)
@@ -159,6 +165,7 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
+  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -186,19 +193,24 @@
     comment-color
   }
 
-  // Lang color falls back to comment color if not set
-  let lang-color = if lang-color == none {
-    if lang-color-state.get() != none { lang-color-state.get() }
-  } else {
-    lang-color
-  }
-
   let comment-flag = get-arg-or-state(comment-flag, comment-flag-state)
   let lang = get-arg-or-state(lang, lang-state)
   let lang-icon = if lang-icon != none {
     lang-icon
+  } else if lang-img != none {
+    lang-img
   } else {
     lang-icon-state.get()
+  }
+
+  let lang-color = if lang-color != none {
+    lang-color
+  } else if lang-color-state.get() != none {
+    lang-color-state.get()
+  } else if lang-icon == true {
+    none
+  } else {
+    comment-color
   }
 
   // Font args need to be merged with state

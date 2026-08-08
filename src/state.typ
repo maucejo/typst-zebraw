@@ -74,9 +74,6 @@
   /// The default `false` preserves the original language tab appearance.
   /// -> boolean | content
   lang-icon: none,
-  /// Alias for `lang-icon`.
-  /// -> boolean | content
-  lang-img: none,
   /// The arguments passed to comments' font.
   /// -> dictionary
   comment-font-args: (:),
@@ -121,8 +118,6 @@
   lang-state.update(lang)
   let lang-icon = if lang-icon != none {
     lang-icon
-  } else if lang-img != none {
-    lang-img
   } else {
     false
   }
@@ -165,7 +160,6 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
-  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -197,8 +191,6 @@
   let lang = get-arg-or-state(lang, lang-state)
   let lang-icon = if lang-icon != none {
     lang-icon
-  } else if lang-img != none {
-    lang-img
   } else {
     lang-icon-state.get()
   }

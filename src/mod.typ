@@ -13,7 +13,6 @@
   comment-flag: none,
   lang: none,
   lang-icon: none,
-  lang-img: none,
   comment-font-args: none,
   lang-font-args: none,
   numbering-font-args: none,
@@ -42,7 +41,6 @@
     comment-flag: comment-flag,
     lang: lang,
     lang-icon: lang-icon,
-    lang-img: lang-img,
     comment-font-args: comment-font-args,
     lang-font-args: lang-font-args,
     numbering-font-args: numbering-font-args,
@@ -472,10 +470,6 @@
   ///
   /// -> boolean | content
   lang-icon: none,
-  /// Alias for `lang-icon`.
-  ///
-  /// -> boolean | content
-  lang-img: none,
   /// The arguments passed to comments' font.
   ///
   /// -> dictionary
@@ -651,11 +645,7 @@
   /// -> content
   body,
 ) = context {
-  let lang-icon = if lang-icon != none {
-    lang-icon
-  } else {
-    lang-img
-  }
+  let lang-icon = if lang-icon != none { lang-icon }
 
   if dictionary(std).keys().contains("html") and std.target() == "html" {
     if counter("zebraw-html-styles").get() == (0,) {
@@ -733,7 +723,6 @@
       comment-flag: comment-flag,
       lang: lang,
       lang-icon: lang-icon,
-      lang-img: lang-img,
       comment-font-args: comment-font-args,
       lang-font-args: lang-font-args,
       numbering-font-args: numbering-font-args,
